@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa Crítico: El Despertar de la Conciencia Bioética</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Roboto:wght@400;500;700&display=swap');
+
+        /* Paleta de colores inspirada en infografías vectoriales modernas */
+        :root {
+            --bg-canvas: #E2E8F0;
+            --bg-doc: #FFFFFF;
+            --dark: #0F172A;
+            --dark-light: #1E293B;
+            --gray-light: #F1F5F9;
+            --gray-border: #CBD5E1;
+            
+            --color-01: #E11D48; /* Rojo */
+            --color-02: #F97316; /* Naranja */
+            --color-03: #8B5CF6; /* Morado */
+            --color-04: #0284C7; /* Azul */
+            --color-05: #059669; /* Verde */
+            
+            --text-main: #334155;
+            --text-light: #64748B;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-canvas);
+            color: var(--text-main);
+            padding: 40px 20px;
+        }
+
+        .artboard {
+            max-width: 1050px;
+            margin: 0 auto;
+            background-color: var(--bg-doc);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative;
+            overflow: hidden; /* Esto se quita en print */
+        }
+
+        /* --- HEADER ESTILO VECTORIAL --- */
+        header {
+            background: var(--dark);
+            color: white;
+            padding: 60px 50px;
+            position: relative;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, var(--color-04), transparent);
+            border-radius: 50%;
+            opacity: 0.5;
+        }
+        
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            left: 10%;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, var(--color-01), transparent);
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 3.2rem;
+            line-height: 1.1;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            color: #94A3B8;
+            position: relative;
+            z-index: 2;
+            border-left: 4px solid var(--color-02);
+            padding-left: 15px;
+        }
+
+        .container {
+            padding: 50px;
+        }
+
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 2rem;
+            color: var(--dark);
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex-grow: 1;
+            height: 4px;
+            background: var(--gray-light);
+        }
+
+        /* --- SECCIÓN 1: TEORÍAS --- */
+        .theory-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .theory-card {
+            background: var(--gray-light);
+            border-radius: 12px;
+            padding: 30px;
+            position: relative;
+            border: 1px solid var(--gray-border);
+            break-inside: avoid;
+        }
+
+        .theory-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .theory-card:nth-child(1)::before { background: var(--color-05); }
+        .theory-card:nth-child(2)::before { background: var(--color-03); }
+        .theory-card:nth-child(3)::before { background: var(--color-04); }
+
+        .theory-card.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .theory-card h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+
+        /* --- SECCIÓN 2: LÍNEA DE TIEMPO --- */
+        .step-item {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+            break-inside: avoid; /* Evita que el bloque se parta */
+            position: relative;
+        }
+
+        .step-number-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .step-number {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 4rem;
+            color: white;
+            width: 120px;
+            height: 120px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            margin-bottom: 15px;
+            z-index: 2;
+        }
+
+        /* Línea conectora ajustada para no forzar saltos */
+        .step-item:not(:last-child) .step-number-container::after {
+            content: '';
+            position: absolute;
+            top: 120px;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            background-color: var(--gray-border);
+            z-index: 1;
+        }
+
+        .step-date {
+            background: var(--dark);
+            color: white;
+            font-weight: 700;
+            padding: 6px 15px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .step-01 .step-number { background: var(--color-01); }
+        .step-02 .step-number { background: var(--color-02); }
+        .step-03 .step-number { background: var(--color-03); }
+        .step-04 .step-number { background: var(--color-04); }
+        .step-05 .step-number { background: var(--color-05); }
+
+        .step-content {
+            padding-top: 10px;
+        }
+
+        .step-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: var(--dark-light);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .step-desc {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .analysis-table {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: var(--gray-light);
+            border: 2px solid var(--gray-border);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .analysis-header {
+            background: var(--dark-light);
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .analysis-body {
+            padding: 20px;
+            font-size: 0.95rem;
+        }
+
+        .analysis-col:first-child {
+            border-right: 2px solid var(--gray-border);
+        }
+
+        .analysis-body ul {
+            padding-left: 20px;
+            margin-bottom: 0;
+        }
+
+        .analysis-body li {
+            margin-bottom: 8px;
+        }
+
+        /* --- REFLEXIÓN FINAL --- */
+        .reflection {
+            background: var(--dark);
+            color: white;
+            padding: 50px;
+            border-radius: 20px;
+            margin-top: 60px;
+            break-inside: avoid;
+        }
+
+        .reflection h2 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--color-02);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .reflection p {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #E2E8F0;
+            margin-bottom: 15px;
+        }
+
+        .highlight {
+            color: var(--color-04);
+            font-weight: bold;
+        }
+
+        /* --- AJUSTES DE IMPRESIÓN CRÍTICOS --- */
+        @media print {
+            body {
+                background: white !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .artboard {
+                box-shadow: none !important;
+                margin: 0 !important;
+                max-width: 100% !important;
+                width: 100% !important;
+                overflow: visible !important; /* Vital para que no se dupliquen elementos */
+            }
+            .container {
+                padding: 30px !important;
+            }
+            .step-item {
+                margin-bottom: 30px !important;
+                break-inside: avoid !important;
+                page-break-inside: avoid !important;
+            }
+            .step-number-container::after {
+                display: none !important; /* Ocultamos la línea en print si da problemas */
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="artboard">
+    
+    <header>
+        <h1>El Despertar de la Conciencia Bioética</h1>
+        <p class="subtitle">De las sombras del pasado a la regulación de la dignidad humana</p>
+    </header>
+
+    <div class="container">
+        
+        <!-- TEORÍAS -->
+        <h2 class="section-title">00. Fundamentación Teórica</h2>
+        <div class="theory-grid">
+            <div class="theory-card full-width">
+                <h3>¿Qué es la Bioética?</h3>
+                <p>Es el puente entre las ciencias de la vida y las humanidades. Disciplina encargada de estudiar y resolver los conflictos éticos que surgen en la investigación médica, la biotecnología y la atención sanitaria, garantizando que el avance científico nunca pase por encima de la dignidad humana.</p>
+            </div>
+            <div class="theory-card">
+                <h3>Éticas Teleológicas</h3>
+                <p>También conocidas como <strong>consecuencialistas</strong>. Sostienen que una acción es buena o mala dependiendo de los fines (<em>telos</em>) o resultados que produzca. Buscan el mayor beneficio para el mayor número de personas.</p>
+            </div>
+            <div class="theory-card">
+                <h3>Éticas Deontológicas</h3>
+                <p>Establece que una acción es correcta si respeta normas y deberes inquebrantables. Exige categóricamente que el ser humano sea tratado siempre como un <strong>fin en sí mismo</strong> y jamás como un instrumento científico.</p>
+            </div>
+        </div>
+
+        <h2 class="section-title">Análisis de Casos Históricos</h2>
+
+        <!-- PASO 01 -->
+        <div class="step-item step-01">
+            <div class="step-number-container">
+                <div class="step-number">01</div>
+                <div class="step-date">1933 - 1945</div>
+            </div>
+            <div class="step-content">
+                <h3 class="step-title">Experimentos Nazis</h3>
+                <p class="step-desc">Médicos del Tercer Reich realizaron letales experimentos (congelación, gases, esterilización masiva) en prisioneros de campos de concentración, tratándolos como material biológico desechable.</p>
+                
+                <div class="analysis-table">
+                    <div class="analysis-col">
+                        <div class="analysis-header" style="background: var(--color-01);">Escáner Bioético (Vulneración)</div>
+                        <div class="analysis-body">
+                            <ul>
+                                <li><strong>Autonomía:</strong> Anulación total. Cero consentimiento.</li>
+                                <li><strong>No Maleficencia:</strong> Tortura y muerte activa y deliberada.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="analysis-col">
+                        <div class="analysis-header">Hito Normativo Generado</div>
+                        <div class="analysis-body">
+                            <p><strong>Código de Núremberg (1947).</strong><br>
+                            Introdujo el requisito indispensable del "consentimiento voluntario" en la investigación.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PASO 02 -->
+        <div class="step-item step-02">
+            <div class="step-number-container">
+                <div class="step-number">02</div>
+                <div class="step-date">1932 - 1972</div>
+            </div>
+            <div class="step-content">
+                <h3 class="step-title">Estudio de Tuskegee</h3>
+                <p class="step-desc">EE. UU. estudió a 400 afroamericanos con sífilis. Se les engañó y se les negó intencionalmente la penicilina para observar el curso fatal de la enfermedad.</p>
+                
+                <div class="analysis-table">
+                    <div class="analysis-col">
+                        <div class="analysis-header" style="background: var(--color-02);">Escáner Bioético (Vulneración)</div>
+                        <div class="analysis-body">
+                            <ul>
+                                <li><strong>Beneficencia:</strong> Se permitió que los pacientes murieran teniendo la cura.</li>
+                                <li><strong>Justicia:</strong> Explotación de una minoría empobrecida.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="analysis-col">
+                        <div class="analysis-header">Hito Normativo Generado</div>
+                        <div class="analysis-body">
+                            <p><strong>Informe Belmont (1979).</strong><br>
+                            Estableció los principios de Respeto, Beneficencia y Justicia, e hizo obligatorios los Comités de Ética.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PASO 03 -->
+        <div class="step-item step-03">
+            <div class="step-number-container">
+                <div class="step-number">03</div>
+                <div class="step-date">1953 - 1973</div>
+            </div>
+            <div class="step-content">
+                <h3 class="step-title">Proyecto MK-Ultra</h3>
+                <p class="step-desc">Programa de la CIA para el control mental. Administraron LSD a civiles sin su conocimiento, provocando daños psiquiátricos irreversibles.</p>
+                
+                <div class="analysis-table">
+                    <div class="analysis-col">
+                        <div class="analysis-header" style="background: var(--color-03);">Escáner Bioético (Vulneración)</div>
+                        <div class="analysis-body">
+                            <ul>
+                                <li><strong>Autonomía:</strong> Secuestro de la voluntad mediante sustancias químicas.</li>
+                                <li><strong>No Maleficencia:</strong> Daño psíquico intencionado.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="analysis-col">
+                        <div class="analysis-header">Hito Normativo Generado</div>
+                        <div class="analysis-body">
+                            <p><strong>Declaración de Helsinki (1964).</strong><br>
+                            Sentenció que el bienestar humano prima sobre la ciencia.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PASO 04 -->
+        <div class="step-item step-04">
+            <div class="step-number-container">
+                <div class="step-number">04</div>
+                <div class="step-date">2011 - 2016</div>
+            </div>
+            <div class="step-content">
+                <h3 class="step-title">Caso Dr. Macchiarini</h3>
+                <p class="step-desc">Cirujano que implantó tráqueas sintéticas basándose en fraude científico. Casi todos sus pacientes murieron sufriendo terriblemente.</p>
+                
+                <div class="analysis-table">
+                    <div class="analysis-col">
+                        <div class="analysis-header" style="background: var(--color-04);">Escáner Bioético (Vulneración)</div>
+                        <div class="analysis-body">
+                            <ul>
+                                <li><strong>No Maleficencia:</strong> Técnica experimental mortal no validada.</li>
+                                <li><strong>Autonomía:</strong> Consentimiento viciado por mentiras.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="analysis-col">
+                        <div class="analysis-header">Hito Normativo Generado</div>
+                        <div class="analysis-body">
+                            <p><strong>Convenio de Oviedo (1997).</strong><br>
+                            Refuerza la validación terapéutica y castiga la mala praxis académica.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PASO 05 -->
+        <div class="step-item step-05">
+            <div class="step-number-container">
+                <div class="step-number">05</div>
+                <div class="step-date">Año 2018</div>
+            </div>
+            <div class="step-content">
+                <h3 class="step-title">Las Gemelas CRISPR</h3>
+                <p class="step-desc">Investigador chino que alteró genéticamente embriones humanos en secreto, ignorando moratorias internacionales.</p>
+                
+                <div class="analysis-table">
+                    <div class="analysis-col">
+                        <div class="analysis-header" style="background: var(--color-05);">Escáner Bioético (Vulneración)</div>
+                        <div class="analysis-body">
+                            <ul>
+                                <li><strong>No Maleficencia:</strong> Riesgos impredecibles para la descendencia.</li>
+                                <li><strong>Autonomía:</strong> Consentimiento paterno opaco.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="analysis-col">
+                        <div class="analysis-header">Hito Normativo Generado</div>
+                        <div class="analysis-body">
+                            <p><strong>Decl. Universal Genoma Humano.</strong><br>
+                            UNESCO prohíbe alteraciones hereditarias que atenten contra la dignidad.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- REFLEXIÓN FINAL -->
+        <div class="reflection">
+            <h2>Reflexión Crítica: ¿Por qué sigue pasando?</h2>
+            <p>Si hoy contamos con un blindaje normativo internacional, <strong>¿por qué siguen ocurriendo tragedias éticas?</strong></p>
+            <p>La regulación no elimina la falibilidad humana ni las presiones del sistema científico actual, que opera bajo la lógica de <span class="highlight">"publicar o perecer"</span>. La ambición por el prestigio y el financiamiento puede cegar a los investigadores, llevándolos a tratar a los pacientes como peldaños en lugar de seres humanos.</p>
+            <p>Por ello, el rol del investigador frente al sistema es el pilar de la Bioética. Como advertía Hans Jonas con su "Principio de Responsabilidad", nuestro inmenso poder tecnológico exige una ética a la misma escala. La <strong>integridad moral individual</strong> es lo único que verdaderamente protege nuestra humanidad compartida.</p>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
