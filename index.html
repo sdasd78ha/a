@@ -45,7 +45,7 @@
             background-color: var(--bg-doc);
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
             position: relative;
-            overflow: hidden; /* Esto se quita en print */
+            overflow: visible;
         }
 
         /* --- HEADER ESTILO VECTORIAL --- */
@@ -54,6 +54,7 @@
             color: white;
             padding: 60px 50px;
             position: relative;
+            overflow: hidden;
         }
 
         header::before {
@@ -164,15 +165,24 @@
             font-size: 1.4rem;
             color: var(--dark);
             margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .theory-card svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
         }
 
         /* --- SECCIÓN 2: LÍNEA DE TIEMPO --- */
         .step-item {
             display: grid;
-            grid-template-columns: 140px 1fr;
+            grid-template-columns: 160px 1fr;
             gap: 40px;
-            margin-bottom: 50px;
-            break-inside: avoid; /* Evita que el bloque se parta */
+            margin-bottom: 70px;
+            break-inside: avoid;
             position: relative;
         }
 
@@ -186,7 +196,7 @@
         .step-number {
             font-family: 'Montserrat', sans-serif;
             font-weight: 900;
-            font-size: 4rem;
+            font-size: 3.5rem;
             color: white;
             width: 120px;
             height: 120px;
@@ -197,14 +207,26 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.15);
             margin-bottom: 15px;
             z-index: 2;
+            position: relative;
+            overflow: hidden;
         }
 
-        /* Línea conectora ajustada para no forzar saltos */
+        /* Icono decorativo dentro del número */
+        .step-number svg {
+            position: absolute;
+            width: 80%;
+            height: 80%;
+            opacity: 0.15;
+            fill: white;
+            right: -10%;
+            bottom: -10%;
+        }
+
         .step-item:not(:last-child) .step-number-container::after {
             content: '';
             position: absolute;
             top: 120px;
-            bottom: -50px;
+            bottom: -70px;
             left: 50%;
             transform: translateX(-50%);
             width: 4px;
@@ -221,6 +243,7 @@
             font-size: 0.9rem;
             text-align: center;
             z-index: 2;
+            width: 100%;
         }
 
         .step-01 .step-number { background: var(--color-01); }
@@ -245,10 +268,11 @@
         .step-desc {
             font-size: 1.1rem;
             color: var(--text-light);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             line-height: 1.6;
         }
 
+        /* Tabla comparativa */
         .analysis-table {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -267,6 +291,15 @@
             font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .analysis-header svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
         }
 
         .analysis-body {
@@ -295,6 +328,13 @@
             border-radius: 20px;
             margin-top: 60px;
             break-inside: avoid;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reflection-content {
+            position: relative;
+            z-index: 2;
         }
 
         .reflection h2 {
@@ -303,6 +343,15 @@
             font-size: 2rem;
             margin-bottom: 20px;
             text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .reflection h2 svg {
+            width: 40px;
+            height: 40px;
+            fill: currentColor;
         }
 
         .reflection p {
@@ -312,38 +361,29 @@
             margin-bottom: 15px;
         }
 
+        .reflection svg.bg-icon {
+            position: absolute;
+            right: -50px;
+            bottom: -50px;
+            width: 300px;
+            height: 300px;
+            fill: white;
+            opacity: 0.05;
+            z-index: 1;
+        }
+
         .highlight {
             color: var(--color-04);
             font-weight: bold;
         }
 
-        /* --- AJUSTES DE IMPRESIÓN CRÍTICOS --- */
+        /* --- AJUSTES DE IMPRESIÓN --- */
         @media print {
-            body {
-                background: white !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
-            .artboard {
-                box-shadow: none !important;
-                margin: 0 !important;
-                max-width: 100% !important;
-                width: 100% !important;
-                overflow: visible !important; /* Vital para que no se dupliquen elementos */
-            }
-            .container {
-                padding: 30px !important;
-            }
-            .step-item {
-                margin-bottom: 30px !important;
-                break-inside: avoid !important;
-                page-break-inside: avoid !important;
-            }
-            .step-number-container::after {
-                display: none !important; /* Ocultamos la línea en print si da problemas */
-            }
+            body { background: white !important; padding: 0 !important; margin: 0 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            .artboard { box-shadow: none !important; margin: 0 !important; max-width: 100% !important; width: 100% !important; overflow: visible !important; }
+            .container { padding: 30px !important; }
+            .step-item { margin-bottom: 40px !important; break-inside: avoid !important; }
+            .step-number-container::after { display: none !important; }
         }
     </style>
 </head>
@@ -362,15 +402,24 @@
         <h2 class="section-title">00. Fundamentación Teórica</h2>
         <div class="theory-grid">
             <div class="theory-card full-width">
-                <h3>¿Qué es la Bioética?</h3>
+                <h3 style="color: var(--color-05);">
+                    <svg viewBox="0 0 24 24"><path d="M21,16.5C21,16.88 20.79,17.21 20.47,17.38L12.57,21.82C12.41,21.94 12.21,22 12,22C11.79,22 11.59,21.94 11.43,21.82L3.53,17.38C3.21,17.21 3,16.88 3,16.5V7.5C3,7.12 3.21,6.79 3.53,6.62L11.43,2.18C11.59,2.06 11.79,2 12,2C12.21,2 12.41,2.06 12.57,2.18L20.47,6.62C20.79,6.79 21,7.12 21,7.5V16.5Z" /></svg>
+                    ¿Qué es la Bioética?
+                </h3>
                 <p>Es el puente entre las ciencias de la vida y las humanidades. Disciplina encargada de estudiar y resolver los conflictos éticos que surgen en la investigación médica, la biotecnología y la atención sanitaria, garantizando que el avance científico nunca pase por encima de la dignidad humana.</p>
             </div>
             <div class="theory-card">
-                <h3>Éticas Teleológicas</h3>
+                <h3 style="color: var(--color-03);">
+                    <svg viewBox="0 0 24 24"><path d="M12,2L4.5,20.29L5.21,21L12,18L18.79,21L19.5,20.29L12,2Z" /></svg>
+                    Éticas Teleológicas
+                </h3>
                 <p>También conocidas como <strong>consecuencialistas</strong>. Sostienen que una acción es buena o mala dependiendo de los fines (<em>telos</em>) o resultados que produzca. Buscan el mayor beneficio para el mayor número de personas.</p>
             </div>
             <div class="theory-card">
-                <h3>Éticas Deontológicas</h3>
+                <h3 style="color: var(--color-04);">
+                    <svg viewBox="0 0 24 24"><path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,11.99H19C18.47,16.11 15.72,19.78 12,20.93V12H5V6.3L12,3.19V11.99Z" /></svg>
+                    Éticas Deontológicas
+                </h3>
                 <p>Establece que una acción es correcta si respeta normas y deberes inquebrantables. Exige categóricamente que el ser humano sea tratado siempre como un <strong>fin en sí mismo</strong> y jamás como un instrumento científico.</p>
             </div>
         </div>
@@ -380,7 +429,10 @@
         <!-- PASO 01 -->
         <div class="step-item step-01">
             <div class="step-number-container">
-                <div class="step-number">01</div>
+                <div class="step-number">
+                    01
+                    <svg viewBox="0 0 24 24"><path d="M7,2V4H8V18A4,4 0 0,0 12,22A4,4 0 0,0 16,18V4H17V2H7M11,16C10.45,16 10,15.55 10,15C10,14.45 10.45,14 11,14C11.55,14 12,14.45 12,15C12,15.55 11.55,16 11,16M14,12C13.45,12 13,11.55 13,11C13,10.45 13.45,10 14,10C14.55,10 15,10.45 15,11C15,11.55 14.55,12 14,12M11,8C10.45,8 10,7.55 10,7C10,6.45 10.45,6 11,6C11.55,6 12,6.45 12,7C12,7.55 11.55,8 11,8Z" /></svg>
+                </div>
                 <div class="step-date">1933 - 1945</div>
             </div>
             <div class="step-content">
@@ -389,7 +441,10 @@
                 
                 <div class="analysis-table">
                     <div class="analysis-col">
-                        <div class="analysis-header" style="background: var(--color-01);">Escáner Bioético (Vulneración)</div>
+                        <div class="analysis-header" style="background: var(--color-01);">
+                            <svg viewBox="0 0 24 24"><path d="M13,14H11V10H13M13,18H11V16H13M1,21H23L12,2L1,21Z" /></svg>
+                            Escáner Bioético
+                        </div>
                         <div class="analysis-body">
                             <ul>
                                 <li><strong>Autonomía:</strong> Anulación total. Cero consentimiento.</li>
@@ -398,7 +453,10 @@
                         </div>
                     </div>
                     <div class="analysis-col">
-                        <div class="analysis-header">Hito Normativo Generado</div>
+                        <div class="analysis-header">
+                            <svg viewBox="0 0 24 24"><path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" /></svg>
+                            Hito Normativo
+                        </div>
                         <div class="analysis-body">
                             <p><strong>Código de Núremberg (1947).</strong><br>
                             Introdujo el requisito indispensable del "consentimiento voluntario" en la investigación.</p>
@@ -411,7 +469,10 @@
         <!-- PASO 02 -->
         <div class="step-item step-02">
             <div class="step-number-container">
-                <div class="step-number">02</div>
+                <div class="step-number">
+                    02
+                    <svg viewBox="0 0 24 24"><path d="M19,3H5C3.89,3 3,3.9 3,5V19C3,20.1 3.89,21 5,21H19C20.11,21 21,20.1 21,19V5C21,3.9 20.11,3 19,3M19,19H5V5H19V19M7,7H17V9H7V7M7,11H17V13H7V11M7,15H17V17H7V15Z" /></svg>
+                </div>
                 <div class="step-date">1932 - 1972</div>
             </div>
             <div class="step-content">
@@ -420,7 +481,10 @@
                 
                 <div class="analysis-table">
                     <div class="analysis-col">
-                        <div class="analysis-header" style="background: var(--color-02);">Escáner Bioético (Vulneración)</div>
+                        <div class="analysis-header" style="background: var(--color-02);">
+                            <svg viewBox="0 0 24 24"><path d="M13,14H11V10H13M13,18H11V16H13M1,21H23L12,2L1,21Z" /></svg>
+                            Escáner Bioético
+                        </div>
                         <div class="analysis-body">
                             <ul>
                                 <li><strong>Beneficencia:</strong> Se permitió que los pacientes murieran teniendo la cura.</li>
@@ -429,7 +493,10 @@
                         </div>
                     </div>
                     <div class="analysis-col">
-                        <div class="analysis-header">Hito Normativo Generado</div>
+                        <div class="analysis-header">
+                            <svg viewBox="0 0 24 24"><path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" /></svg>
+                            Hito Normativo
+                        </div>
                         <div class="analysis-body">
                             <p><strong>Informe Belmont (1979).</strong><br>
                             Estableció los principios de Respeto, Beneficencia y Justicia, e hizo obligatorios los Comités de Ética.</p>
@@ -442,7 +509,10 @@
         <!-- PASO 03 -->
         <div class="step-item step-03">
             <div class="step-number-container">
-                <div class="step-number">03</div>
+                <div class="step-number">
+                    03
+                    <svg viewBox="0 0 24 24"><path d="M13,12H11V10H13M13,16H11V14H13M17.27,3L20.53,4.55L19.15,7.45L15.9,5.9L17.27,3M6.73,3L8.1,5.9L4.85,7.45L3.47,4.55L6.73,3M12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22Z" /></svg>
+                </div>
                 <div class="step-date">1953 - 1973</div>
             </div>
             <div class="step-content">
@@ -451,7 +521,10 @@
                 
                 <div class="analysis-table">
                     <div class="analysis-col">
-                        <div class="analysis-header" style="background: var(--color-03);">Escáner Bioético (Vulneración)</div>
+                        <div class="analysis-header" style="background: var(--color-03);">
+                            <svg viewBox="0 0 24 24"><path d="M13,14H11V10H13M13,18H11V16H13M1,21H23L12,2L1,21Z" /></svg>
+                            Escáner Bioético
+                        </div>
                         <div class="analysis-body">
                             <ul>
                                 <li><strong>Autonomía:</strong> Secuestro de la voluntad mediante sustancias químicas.</li>
@@ -460,7 +533,10 @@
                         </div>
                     </div>
                     <div class="analysis-col">
-                        <div class="analysis-header">Hito Normativo Generado</div>
+                        <div class="analysis-header">
+                            <svg viewBox="0 0 24 24"><path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" /></svg>
+                            Hito Normativo
+                        </div>
                         <div class="analysis-body">
                             <p><strong>Declaración de Helsinki (1964).</strong><br>
                             Sentenció que el bienestar humano prima sobre la ciencia.</p>
@@ -473,7 +549,10 @@
         <!-- PASO 04 -->
         <div class="step-item step-04">
             <div class="step-number-container">
-                <div class="step-number">04</div>
+                <div class="step-number">
+                    04
+                    <svg viewBox="0 0 24 24"><path d="M19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M19,19H5V5H19V19M10,17H14V13H10V17M10,11H14V7H10V11Z" /></svg>
+                </div>
                 <div class="step-date">2011 - 2016</div>
             </div>
             <div class="step-content">
@@ -482,7 +561,10 @@
                 
                 <div class="analysis-table">
                     <div class="analysis-col">
-                        <div class="analysis-header" style="background: var(--color-04);">Escáner Bioético (Vulneración)</div>
+                        <div class="analysis-header" style="background: var(--color-04);">
+                            <svg viewBox="0 0 24 24"><path d="M13,14H11V10H13M13,18H11V16H13M1,21H23L12,2L1,21Z" /></svg>
+                            Escáner Bioético
+                        </div>
                         <div class="analysis-body">
                             <ul>
                                 <li><strong>No Maleficencia:</strong> Técnica experimental mortal no validada.</li>
@@ -491,7 +573,10 @@
                         </div>
                     </div>
                     <div class="analysis-col">
-                        <div class="analysis-header">Hito Normativo Generado</div>
+                        <div class="analysis-header">
+                            <svg viewBox="0 0 24 24"><path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" /></svg>
+                            Hito Normativo
+                        </div>
                         <div class="analysis-body">
                             <p><strong>Convenio de Oviedo (1997).</strong><br>
                             Refuerza la validación terapéutica y castiga la mala praxis académica.</p>
@@ -504,7 +589,10 @@
         <!-- PASO 05 -->
         <div class="step-item step-05">
             <div class="step-number-container">
-                <div class="step-number">05</div>
+                <div class="step-number">
+                    05
+                    <svg viewBox="0 0 24 24"><path d="M10.6,13.4C11,13.8 11,14.4 10.6,14.8C9.2,16.2 9.2,18.5 10.6,19.9C11,20.3 11,20.9 10.6,21.3C10.2,21.7 9.6,21.7 9.2,21.3C7,19.1 7,15.6 9.2,13.4C9.6,13 10.2,13 10.6,13.4M14.8,10.6C14.4,10.2 13.8,10.2 13.4,10.6C11.2,12.8 11.2,16.3 13.4,18.5C13.8,18.9 14.4,18.9 14.8,18.5C15.2,18.1 15.2,17.5 14.8,17.1C13.4,15.7 13.4,13.4 14.8,12C15.2,11.6 15.2,11 14.8,10.6M17.4,6.6C17.8,7 17.8,7.6 17.4,8C16,9.4 16,11.7 17.4,13.1C17.8,13.5 17.8,14.1 17.4,14.5C17,14.9 16.4,14.9 16,14.5C13.8,12.3 13.8,8.8 16,6.6C16.4,6.2 17,6.2 17.4,6.6M21.3,3.5C21.7,3.9 21.7,4.5 21.3,4.9C19.1,7.1 19.1,10.6 21.3,12.8C21.7,13.2 21.7,13.8 21.3,14.2C20.9,14.6 20.3,14.6 19.9,14.2C17.7,12 17.7,8.5 19.9,6.3C20.3,5.9 20.9,5.9 21.3,6.3" /></svg>
+                </div>
                 <div class="step-date">Año 2018</div>
             </div>
             <div class="step-content">
@@ -513,7 +601,10 @@
                 
                 <div class="analysis-table">
                     <div class="analysis-col">
-                        <div class="analysis-header" style="background: var(--color-05);">Escáner Bioético (Vulneración)</div>
+                        <div class="analysis-header" style="background: var(--color-05);">
+                            <svg viewBox="0 0 24 24"><path d="M13,14H11V10H13M13,18H11V16H13M1,21H23L12,2L1,21Z" /></svg>
+                            Escáner Bioético
+                        </div>
                         <div class="analysis-body">
                             <ul>
                                 <li><strong>No Maleficencia:</strong> Riesgos impredecibles para la descendencia.</li>
@@ -522,7 +613,10 @@
                         </div>
                     </div>
                     <div class="analysis-col">
-                        <div class="analysis-header">Hito Normativo Generado</div>
+                        <div class="analysis-header">
+                            <svg viewBox="0 0 24 24"><path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" /></svg>
+                            Hito Normativo
+                        </div>
                         <div class="analysis-body">
                             <p><strong>Decl. Universal Genoma Humano.</strong><br>
                             UNESCO prohíbe alteraciones hereditarias que atenten contra la dignidad.</p>
@@ -534,10 +628,16 @@
 
         <!-- REFLEXIÓN FINAL -->
         <div class="reflection">
-            <h2>Reflexión Crítica: ¿Por qué sigue pasando?</h2>
-            <p>Si hoy contamos con un blindaje normativo internacional, <strong>¿por qué siguen ocurriendo tragedias éticas?</strong></p>
-            <p>La regulación no elimina la falibilidad humana ni las presiones del sistema científico actual, que opera bajo la lógica de <span class="highlight">"publicar o perecer"</span>. La ambición por el prestigio y el financiamiento puede cegar a los investigadores, llevándolos a tratar a los pacientes como peldaños en lugar de seres humanos.</p>
-            <p>Por ello, el rol del investigador frente al sistema es el pilar de la Bioética. Como advertía Hans Jonas con su "Principio de Responsabilidad", nuestro inmenso poder tecnológico exige una ética a la misma escala. La <strong>integridad moral individual</strong> es lo único que verdaderamente protege nuestra humanidad compartida.</p>
+            <svg class="bg-icon" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z" /></svg>
+            <div class="reflection-content">
+                <h2>
+                    <svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,16.5L6.5,12L7.91,10.59L11,13.67L16.09,8.58L17.5,10L11,16.5Z" /></svg>
+                    Reflexión Crítica: ¿Por qué sigue pasando?
+                </h2>
+                <p>Si hoy contamos con un blindaje normativo internacional, <strong>¿por qué siguen ocurriendo tragedias éticas?</strong></p>
+                <p>La regulación no elimina la falibilidad humana ni las presiones del sistema científico actual, que opera bajo la lógica de <span class="highlight">"publicar o perecer"</span>. La ambición por el prestigio y el financiamiento puede cegar a los investigadores, llevándolos a tratar a los pacientes como peldaños en lugar de seres humanos.</p>
+                <p>Por ello, el rol del investigador frente al sistema es el pilar de la Bioética. Como advertía Hans Jonas con su "Principio de Responsabilidad", nuestro inmenso poder tecnológico exige una ética a la misma escala. La <strong>integridad moral individual</strong> es lo único que verdaderamente protege nuestra humanidad compartida.</p>
+            </div>
         </div>
 
     </div>
